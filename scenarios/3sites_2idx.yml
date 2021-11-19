@@ -1,0 +1,195 @@
+version: "3.6"
+
+networks:
+  splunknet:
+    driver: bridge
+    attachable: true
+
+services:
+  site1_sh1:
+    networks:
+      splunknet:
+        aliases:
+          - site1_sh1
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    command: start
+    hostname: site1_sh1
+    container_name: site1_sh1
+    env_file: 
+      - ../.env
+      - ../.secrets.env
+    environment:
+      - SPLUNK_INDEXER_URL=site1_idx1,site1_idx2
+      - SPLUNK_SEARCH_HEAD_URL=site1_sh1,site1_sh2
+      - SPLUNK_CLUSTER_MASTER_URL=site1_cm1
+      - SPLUNK_MULTISITE_MASTER=site1_cm1
+      - SPLUNK_ROLE=splunk_search_head
+      - SPLUNK_SITE=site1      
+    ports:
+      - 8000
+      - 8089
+
+  site1_cm1:
+    networks:
+      splunknet:
+        aliases:
+          - site1_cm1
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    command: start
+    hostname: site1_cm1
+    container_name: site1_cm1
+    env_file: 
+      - ../.env
+      - ../.secrets.env
+    environment:
+      - SPLUNK_INDEXER_URL=site1_idx1,site1_idx2
+      - SPLUNK_SEARCH_HEAD_URL=site1_sh1
+      - SPLUNK_CLUSTER_MASTER_URL=site1_cm1
+      - SPLUNK_MULTISITE_MASTER=site1_cm1
+      - SPLUNK_MULTISITE_REPLICATION_FACTOR_ORIGIN=1
+      - SPLUNK_MULTISITE_REPLICATION_FACTOR_TOTAL=1
+      - SPLUNK_MULTISITE_SEARCH_FACTOR_ORIGIN=1
+      - SPLUNK_MULTISITE_SEARCH_FACTOR_TOTAL=1
+      - SPLUNK_ROLE=splunk_cluster_master
+      - SPLUNK_SITE=site1
+      - SPLUNK_ALL_SITES=site1,site2,site3
+    ports:
+      - 8000
+      - 8089
+
+  site1_idx1:
+    networks:
+      splunknet:
+        aliases:
+          - site1_idx1
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    command: start
+    hostname: site1_idx1
+    container_name: site1_idx1
+    env_file: 
+      - ../.env
+      - ../.secrets.env
+    environment:
+      - SPLUNK_INDEXER_URL=site1_idx1,site1_idx2
+      - SPLUNK_SEARCH_HEAD_URL=site1_sh1
+      - SPLUNK_CLUSTER_MASTER_URL=site1_cm1
+      - SPLUNK_MULTISITE_MASTER=site1_cm1
+      - SPLUNK_ROLE=splunk_indexer
+      - SPLUNK_SITE=site1      
+    ports:
+      - 8000
+      - 8089
+
+  site1_idx2:
+    networks:
+      splunknet:
+        aliases:
+          - site1_idx2
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    command: start
+    hostname: site1_idx2
+    container_name: site1_idx2
+    env_file: 
+      - ../.env
+      - ../.secrets.env
+    environment:
+      - SPLUNK_INDEXER_URL=site1_idx1,site1_idx2
+      - SPLUNK_SEARCH_HEAD_URL=site1_sh1
+      - SPLUNK_CLUSTER_MASTER_URL=site1_cm1
+      - SPLUNK_MULTISITE_MASTER=site1_cm1
+      - SPLUNK_ROLE=splunk_indexer
+      - SPLUNK_SITE=site1    
+    ports:
+      - 8000
+      - 8089
+
+# Second site    
+  site2_idx1:
+    networks:
+      splunknet:
+        aliases:
+          - site2_idx1
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    command: start
+    hostname: site2_idx1
+    container_name: site2_idx1
+    env_file: 
+      - ../.env
+      - ../.secrets.env
+    environment:
+      - SPLUNK_INDEXER_URL=site2_idx1,site2_idx2
+      - SPLUNK_CLUSTER_MASTER_URL=site1_cm1
+      - SPLUNK_MULTISITE_MASTER=site1_cm1
+      - SPLUNK_ROLE=splunk_indexer
+      - SPLUNK_SITE=site2      
+    ports:
+      - 8000
+      - 8089
+
+  site2_idx2:
+    networks:
+      splunknet:
+        aliases:
+          - site2_idx2
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    command: start
+    hostname: site2_idx2
+    container_name: site2_idx2
+    env_file: 
+      - ../.env
+      - ../.secrets.env
+    environment:
+      - SPLUNK_INDEXER_URL=site2_idx1,site2_idx2
+      - SPLUNK_CLUSTER_MASTER_URL=site1_cm1
+      - SPLUNK_MULTISITE_MASTER=site1_cm1
+      - SPLUNK_ROLE=splunk_indexer
+      - SPLUNK_SITE=site2      
+    ports:
+      - 8000
+      - 8089
+
+# 3rd site    
+
+  site3_idx1:
+    networks:
+      splunknet:
+        aliases:
+          - site3_idx1
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    command: start
+    hostname: site3_idx1
+    container_name: site3_idx1
+    env_file: 
+      - ../.env
+      - ../.secrets.env
+    environment:
+      - SPLUNK_INDEXER_URL=site3_idx1,site3_idx2
+      - SPLUNK_CLUSTER_MASTER_URL=site1_cm1
+      - SPLUNK_MULTISITE_MASTER=site1_cm1
+      - SPLUNK_ROLE=splunk_indexer
+      - SPLUNK_SITE=site3
+    ports:
+      - 8000
+      - 8089
+
+  site3_idx2:
+    networks:
+      splunknet:
+        aliases:
+          - site3_idx2
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    command: start
+    hostname: site3_idx2
+    container_name: site3_idx2
+    env_file: 
+      - ../.env
+      - ../.secrets.env
+    environment:
+      - SPLUNK_INDEXER_URL=site3_idx1,site3_idx2
+      - SPLUNK_CLUSTER_MASTER_URL=site1_cm1
+      - SPLUNK_MULTISITE_MASTER=site1_cm1
+      - SPLUNK_ROLE=splunk_indexer
+      - SPLUNK_SITE=site3
+    ports:
+      - 8000
+      - 8089

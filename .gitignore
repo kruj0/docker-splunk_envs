@@ -1,0 +1,9 @@
+.vscode/
+*.idea
+**/*.log
+**/*.pyc
+/*.env
+splunk.lic
+default.yml
+scenarios_live
+/docker-compose.yml

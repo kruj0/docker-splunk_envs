@@ -1,0 +1,36 @@
+version: "3.6"
+
+services:
+  adminsh:
+    image: ${SPLUNK_IMAGE}:latest # Defined inside .env
+    hostname: adminshxD
+    container_name: adminshxD
+    env_file: 
+      - .env
+      - .secrets.env
+    # environment:
+      # - SPLUNK_APPS_URL=
+    ports:
+      - 8000:8000
+    volumes:
+      # splunk license
+      - ../splunk.lic:/tmp/splunk.lic
+      # splunk-docker envs 
+      - ./default.yml:/tmp/defaults/default.yml
+      #default apps
+      - ../apps/config_explorer:/opt/splunk/etc/apps/config_explorer
+      - ../apps/kvstore_tools:/opt/splunk/etc/apps/kvstore_tools
+      - ../apps/lookup_editor:/opt/splunk/etc/apps/lookup_editor
+      - ../apps/meta_woot:/opt/splunk/etc/apps/meta_woot
+      - ../apps/Splunk_SA_CIM:/opt/splunk/etc/apps/Splunk_SA_CIM
+      #visulaisation stuff
+      - ../apps/sankey_diagram_app:/opt/splunk/etc/apps/sankey_diagram_app
+      - ../apps/timeine_app:/opt/splunk/etc/apps/timeine_app
+      - ../apps/semicircle_donut:/opt/splunk/etc/apps/semicircle_donut
+      #customer apps
+      - ../apps/TA-jira-service-desk-simple-addon:/opt/splunk/etc/apps/TA-jira-service-desk-simple-addon
+      # trackme
+      - ../apps/trackme:/opt/splunk/etc/apps/trackme
+      # github stuff
+      - ../apps/cluster_health_tools:/opt/splunk/etc/apps/cluster_health_tools
+      - ../apps/analysis_of_splunkbase_apps:/opt/splunk/etc/apps/analysis_of_splunkbase_apps
