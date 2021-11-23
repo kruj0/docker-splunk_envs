@@ -29,8 +29,8 @@ With VSC and my modded docker image (uid=1000) its easy to make live changes on 
 my strucute is following in short:
 ```
 mkdir splunk
-mkdir apps
-git clone https://github.com/8lex/docker-splunk_envs
+mkdir splunk/apps
+git clone https://github.com/8lex/docker-splunk_envs splunk/docker-splunk_envs
 ```
 Inside the apps folder are the splunk apps which i either clone/download from github/splunkbase or use customer defined apps where i need to work with.
 
