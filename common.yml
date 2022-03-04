@@ -2,3 +2,4 @@
 - name: install rsync
   ansible.builtin.shell: microdnf install rsync
   become: yes
+  become_user: "{{ privileged_user }}"
