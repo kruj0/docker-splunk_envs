@@ -131,8 +131,8 @@ docker-compose up
 
 Use the compose files from the scenarios folder.
 ```
-docker-compose up -f scenarios/idxc_shc.yml
-docker-compose up -f scenarios/2sites_i2dx.yml
+docker-compose -f scenarios/idxc_shc.yml up
+docker-compose -f scenarios/2sites_i2dx.yml up
 ```
 
 ## docker-copose env hack

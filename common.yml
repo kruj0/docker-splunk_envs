@@ -1,8 +1,4 @@
----
-- name: install rsync
-  hosts: all
+- name: rsync
+  ansible.builtin.shell: microdnf install rsync
   become: yes
-
-  tasks:
-    - name: rsync
-      ansible.builtin.shell: microdnf install rsync
+  become_user: root

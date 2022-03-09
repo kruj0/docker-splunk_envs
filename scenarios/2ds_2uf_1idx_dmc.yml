@@ -1,0 +1,88 @@
+version: "3.6"
+services:
+  DS1:
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: DS1
+    labels:
+       "component" : "DS"
+    env_file: 
+      - .env
+      - ../.secrets.env
+    environment:
+      - SPLUNK_ROLE=splunk_deployment_server
+      - SPLUNK_INDEXER_URL=idx1
+      - SPLUNK_APPS_URL
+    ports:
+      - 8100:8000
+
+  uf11:
+    image: ${UF_IMAGE:-splunk/universalforwarder:latest}
+    hostname: uf11
+    labels:
+       "component" : "forwarder"
+    env_file: 
+      - .env
+      - ../.secrets.env
+    environment:
+      - SPLUNK_CMD=add forward-server idx1:9997
+      - SPLUNK_DEPLOYMENT_SERVER=DS1
+
+  DS2:
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    hostname: DS2
+    labels:
+       "component" : "Deploymentserver"
+    env_file: 
+      - .env
+      - ../.secrets.env
+    environment:
+      - SPLUNK_ROLE=splunk_deployment_server
+      - SPLUNK_INDEXER_URL=idx1
+      - SPLUNK_APPS_URL
+    ports:
+      - 8200:8000
+
+  uf21:
+    image: ${UF_IMAGE:-splunk/universalforwarder:latest}
+    hostname: uf21
+    labels:
+       "component" : "FWD"
+    env_file: 
+      - .env
+      - ../.secrets.env
+    environment:
+      - SPLUNK_CMD=add forward-server idx1:9997
+      - SPLUNK_DEPLOYMENT_SERVER=DS2
+
+  idx1:
+    image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
+    command: start
+    hostname: idx1
+    container_name: idx1
+    labels:
+       "component" : "IDX"
+    env_file: 
+      - .env
+      - ../.secrets.env
+    environment:
+      - SPLUNK_SEARCH_HEAD_URL=DMC
+      - SPLUNK_INDEXER_URL=idx1
+      - SPLUNK_ROLE=splunk_indexer
+##############################
+  DMC:
+    image: ${SPLUNK_IMAGE} # Defined inside .env
+    command: start
+    hostname: DMC
+    container_name: DMC
+    labels:
+       "component" : "DMC"
+    env_file: 
+      - .env
+      - ../.secrets.env
+    environment:
+      - SPLUNK_INDEXER_URL=idx1
+      - SPLUNK_ROLE=splunk_monitor
+    ports:
+      - 8000:8000
+      - 9997:9997
+      - 8089:8089
