@@ -19,7 +19,7 @@ services:
     image: ${UF_IMAGE:-splunk/universalforwarder:latest}
     hostname: uf11
     labels:
-       "component" : "forwarder"
+       "component" : "UF"
     env_file: 
       - .env
       - ../.secrets.env
@@ -31,7 +31,7 @@ services:
     image: ${SPLUNK_IMAGE:-splunk/splunk:latest}
     hostname: DS2
     labels:
-       "component" : "Deploymentserver"
+       "component" : "DS"
     env_file: 
       - .env
       - ../.secrets.env
@@ -46,7 +46,7 @@ services:
     image: ${UF_IMAGE:-splunk/universalforwarder:latest}
     hostname: uf21
     labels:
-       "component" : "FWD"
+       "component" : "UF"
     env_file: 
       - .env
       - ../.secrets.env
@@ -75,7 +75,7 @@ services:
     hostname: DMC
     container_name: DMC
     labels:
-       "component" : "DMC"
+       "component" : "MC"
     env_file: 
       - .env
       - ../.secrets.env
