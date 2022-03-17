@@ -41,6 +41,8 @@ services:
     command: start
     hostname: sh1
     container_name: sh1
+    labels:
+       "component" : "SHC"
     env_file: 
       - .env
       - .secrets 
@@ -68,6 +70,8 @@ services:
     command: start
     hostname: sh2
     container_name: sh2
+    labels:
+       "component" : "SHC"
     env_file: 
       - .env
       - .secrets 
@@ -94,6 +98,8 @@ services:
     command: start
     hostname: sh3
     container_name: sh3
+    labels:
+       "component" : "SHC"
     env_file: 
       - .env
       - .secrets 
@@ -120,6 +126,8 @@ services:
     command: start
     hostname: cm1
     container_name: cm1
+    labels:
+       "component" : "CM"
     env_file: 
       - .env
       - .secrets 
@@ -145,6 +153,8 @@ services:
     command: start
     hostname: idx1
     container_name: idx1
+    labels:
+       "component" : "IDXC"
     env_file: 
       - .env
       - .secrets 
@@ -170,6 +180,8 @@ services:
     command: start
     hostname: idx2
     container_name: idx2
+    labels:
+       "component" : "IDXC"
     env_file: 
       - .env
       - .secrets 
@@ -195,6 +207,8 @@ services:
     command: start
     hostname: idx3
     container_name: idx3
+    labels:
+       "component" : "IDXC"
     env_file: 
       - .env
       - .secrets 
@@ -220,6 +234,8 @@ services:
     command: start
     hostname: adminsh
     container_name: adminsh
+    labels:
+       "component" : "SH"
     env_file: 
       - .env
       - .secrets
@@ -244,6 +260,8 @@ services:
     command: start
     hostname: lm
     container_name: lm
+    labels:
+       "component" : "LM"
     env_file: 
       - .env   
       - .secrets 

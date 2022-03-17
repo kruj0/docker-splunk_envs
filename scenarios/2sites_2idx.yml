@@ -16,6 +16,8 @@ services:
     command: start
     hostname: site1_sh1
     container_name: site1_sh1
+    labels:
+       "component" : "SH"
     env_file: 
       - ../.env
       - ../.secrets.env
@@ -40,6 +42,8 @@ services:
     command: start
     hostname: site1_cm1
     container_name: site1_cm1
+    labels:
+       "component" : "CM"
     env_file: 
       - ../.env
       - ../.secrets.env
@@ -68,6 +72,8 @@ services:
     command: start
     hostname: site1_idx1
     container_name: site1_idx1
+    labels:
+       "component" : "IDXC"
     env_file: 
       - ../.env
       - ../.secrets.env
@@ -91,6 +97,8 @@ services:
     command: start
     hostname: site1_idx2
     container_name: site1_idx2
+    labels:
+       "component" : "IDXC"
     env_file: 
       - ../.env
       - ../.secrets.env
@@ -115,6 +123,8 @@ services:
     command: start
     hostname: site2_idx1
     container_name: site2_idx1
+    labels:
+       "component" : "IDXC"
     env_file: 
       - ../.env
       - ../.secrets.env
@@ -137,6 +147,8 @@ services:
     command: start
     hostname: site2_idx2
     container_name: site2_idx2
+    labels:
+       "component" : "IDXC"
     env_file: 
       - ../.env
       - ../.secrets.env
