@@ -15,7 +15,7 @@ services:
       hostname: dep1
       env_file: 
         - .env
-        - .secrets 
+        - ../.secrets.env 
       environment:
         - SPLUNK_INDEXER_URL=idx1
         - SPLUNK_SEARCH_HEAD_CAPTAIN_URL=sh1
@@ -45,7 +45,7 @@ services:
        "component" : "SHC"
     env_file: 
       - .env
-      - .secrets 
+      - ../.secrets.env 
     environment:
       - SPLUNK_INDEXER_URL=idx1,idx2,idx3
       - SPLUNK_SEARCH_HEAD_CAPTAIN_URL=sh1
@@ -74,7 +74,7 @@ services:
        "component" : "SHC"
     env_file: 
       - .env
-      - .secrets 
+      - ../.secrets.env 
     environment:
       - SPLUNK_INDEXER_URL=idx1,idx2,idx3
       - SPLUNK_SEARCH_HEAD_CAPTAIN_URL=sh1
@@ -102,7 +102,7 @@ services:
        "component" : "SHC"
     env_file: 
       - .env
-      - .secrets 
+      - ../.secrets.env 
     environment:
       - SPLUNK_INDEXER_URL=idx1,idx2,idx3
       - SPLUNK_SEARCH_HEAD_CAPTAIN_URL=sh1
@@ -130,7 +130,7 @@ services:
        "component" : "CM"
     env_file: 
       - .env
-      - .secrets 
+      - ../.secrets.env 
     environment:
       - SPLUNK_INDEXER_URL=idx1,idx2,idx3
       - SPLUNK_SEARCH_HEAD_CAPTAIN_URL=sh1
@@ -157,7 +157,7 @@ services:
        "component" : "IDXC"
     env_file: 
       - .env
-      - .secrets 
+      - ../.secrets.env 
     environment:
       - SPLUNK_INDEXER_URL=idx1,idx2,idx3
       - SPLUNK_SEARCH_HEAD_CAPTAIN_URL=sh1
@@ -184,7 +184,7 @@ services:
        "component" : "IDXC"
     env_file: 
       - .env
-      - .secrets 
+      - ../.secrets.env 
     environment:
       - SPLUNK_INDEXER_URL=idx1,idx2,idx3
       - SPLUNK_SEARCH_HEAD_CAPTAIN_URL=sh1
@@ -211,7 +211,7 @@ services:
        "component" : "IDXC"
     env_file: 
       - .env
-      - .secrets 
+      - ../.secrets.env 
     environment:
       - SPLUNK_INDEXER_URL=idx1,idx2,idx3
       - SPLUNK_SEARCH_HEAD_CAPTAIN_URL=sh1
@@ -238,7 +238,7 @@ services:
        "component" : "SH"
     env_file: 
       - .env
-      - .secrets
+      - ../.secrets.env
     environment:
       - SPLUNK_SEARCH_HEAD_CAPTAIN_URL=sh1
       - SPLUNK_SEARCH_HEAD_URL=sh2,sh3
@@ -247,7 +247,7 @@ services:
       - SPLUNK_LICENSE_URI
     ports:
       - 8000:8000
-      - 8089
+      - 8089:8089
     volumes:
       - ./defaults:/tmp/defaults
 
@@ -264,7 +264,7 @@ services:
        "component" : "LM"
     env_file: 
       - .env   
-      - .secrets 
+      - ../.secrets.env 
     environment:
       - SPLUNK_LICENSE_MASTER_URL=lm
       - SPLUNK_ROLE=splunk_license_master

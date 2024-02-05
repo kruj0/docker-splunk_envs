@@ -1,21 +1,15 @@
 # docker-splunk_envs
 
+some saved docker compose environments for testing.
 
 
+## Latest used docker-splunk image
+![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/kruj0/splunk/latest?color=green&label=Splunk-UID:1000&style=for-the-badge)
 
-# Docker-Splunk: Containerizing Splunk Enterprise with uid & guid=100
-# Latest docker-splunk image
-[![latest splunk image](https://github.com/8lex/docker-splunk/actions/workflows/splunk_image.yml/badge.svg)](https://github.com/8lex/docker-splunk/actions/workflows/splunk_image.yml)
-[![GitHub release](https://img.shields.io/github/v/tag/8lex/docker-splunk?sort=semver&label=Version)](https://github.com/8lex/docker-splunk/releases)
-
-8lex/splunk
-
-----
 
 ---
 
 ## Table of Contents
-
 1. [Purpose](#purpose)
 1. [Structure](#structure)
 1. [Quickstart](#quickstart)
@@ -30,7 +24,7 @@ my strucute is following in short:
 ```
 mkdir splunk
 mkdir splunk/apps
-git clone https://github.com/8lex/docker-splunk_envs splunk/docker-splunk_envs
+git clone https://github.com/kruj0/docker-splunk_envs splunk/docker-splunk_envs
 ```
 Inside the apps folder are the splunk apps which i either clone/download from github/splunkbase or use customer defined apps where i need to work with.
 
@@ -74,12 +68,21 @@ the scenarios inside the scenarios_live folder are my customer test enviroments
 
 # quickstart
 
+## fast way2go
+```
+docker pull kruj0/splunk:latest
+docker run --rm -it kruj0/splunk:latest create-defaults > default.yml
+echo -e "SPLUNK_IMAGE=kruj0/splunk\nSPLUNK_START_ARGS=--accept-license\nSPLUNK_LICENSE_URI=/tmp/splunk.lic\nTZ=Europe/Berlin\nDEBUG=true" > .env
+echo -e "SPLUNK_PASSWORD=SplunkP4ssw0rd!" > .secrets.env
+
+```
+
 ## default.yml
 First you need a default.yml from docker-splunk.
 
 ```
-docker pull 8lex/splunk:latest
-docker run --rm -it 8lex/splunk:latest create-defaults > default.yml
+docker pull kruj0/splunk:latest
+docker run --rm -it kruj0/splunk:latest create-defaults > default.yml
 ```
 
 ## splunk license
@@ -99,7 +102,7 @@ I use a the following env strucuture:
 file for global definitions for every container which are not defined in default.yml from splunk. 
 Use the following content as an example for a .env file:
 ```
-SPLUNK_IMAGE=8lex/splunk
+SPLUNK_IMAGE=kruj0/splunk
 SPLUNK_START_ARGS=--accept-license
 SPLUNK_LICENSE_URI=/tmp/splunk.lic
 TZ=Europe/Berlin
@@ -120,7 +123,9 @@ SPLUNK_SHC_PASS4SYMMKEY=F00bar1234!
 
 
 # go
-copy the `docker-compose.yml` from the scenarios folder into the current folder. this file is for a single search head, which covers 90% of all test cases.
+copy the `docker-compose.yml` from the scenarios folder into the current folder. 
+
+This file is for a **single search head**, which covers 90% of all test cases. 
 
 Then:
 ```
@@ -140,11 +145,11 @@ if you use a compose file from the scenarios folder, please be aware of the .env
 
 Beware about the .env files! 
 
-If you need more scenarios use the the docker-splunk files. They should work, but they dont adapt to the .env files, which i use : [docker-splunk scenarios](https://github.com/8lex/docker-splunk/tree/develop/test_scenarios)
+If you need more scenarios use the the docker-splunk files. They should work, but they dont adapt to the .env files, which i use : [docker-splunk scenarios](https://github.com/kruj0/docker-splunk/tree/develop/test_scenarios)
 
 
 # Links
 
- [Dockerhub Image](https://hub.docker.com/r/8lex/splunk)
+ [Dockerhub Image](https://hub.docker.com/r/kruj0/splunk)
 
- [Github 8lex/docker-splunk](https://github.com/8lex/docker-splunk)
+ [Github kruj0/docker-splunk](https://github.com/kruj0/docker-splunk)
